@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+W6 Sample 08: Two Images in Sequence
+이번 단계: 07번의 두 그림을 유지하면서 hidden과 버튼으로 한 장씩 보여줍니다.
+사용법: 전체 복사 → 새 메모장 → assets 폴더 옆에 index.html로 저장.
+코드를 외우기보다, 브라우저가 무엇을 하도록 할지 생각하세요.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Images in Sequence</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    button, select {
+      font-size: 18px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+    button { cursor: pointer; }
+    img { display: block; width: 100%; height: auto; border-radius: 12px; }
+    figure { margin: 16px 0; }
+    audio { width: 100%; margin-top: 12px; }
+    button:focus-visible { outline: 3px solid #1463ab; outline-offset: 4px; }
+    .note { color: #465363; font-size: 15px; }
+  </style>
+</head>
+<body>
+  <h1>Two Images in Sequence</h1>
+  <!-- [변경] 처음에는 첫 번째 화면만 보입니다. -->
+  <section id="screen1">
+  <figure>
+    <!-- [추가] src는 그림 파일의 위치, alt는 그림의 대체 설명입니다. -->
+    <img src="assets/images/picture_01.png" alt="A quiet park with trees, a bench and a winding path.">
+    <figcaption>A quiet park.</figcaption>
+  </figure>
+  </section>
+  <!-- [추가] hidden이 있으면 이 화면은 보이지 않습니다. -->
+  <section id="screen2" hidden>
+  <figure>
+    <!-- [추가] 두 번째 그림도 같은 assets 폴더에서 불러옵니다. -->
+    <img src="assets/images/picture_02.png" alt="A small cafe with an awning and an outdoor table.">
+    <figcaption>A neighborhood cafe.</figcaption>
+  </figure>
+  </section>
+  <p id="progress" role="status">Picture 1 of 2</p>
+  <button id="backButton" onclick="showScreen(1)" disabled>Back</button>
+  <button id="nextButton" onclick="showScreen(2)">Next</button>
+
+  <script>
+    function showScreen(number) {
+      // [추가] true면 숨기고 false면 보여줍니다. 두 화면 중 하나만 표시됩니다.
+      document.getElementById("screen1").hidden = number !== 1;
+      document.getElementById("screen2").hidden = number !== 2;
+      document.getElementById("progress").textContent = "Picture " + number + " of 2";
+      document.getElementById("backButton").disabled = number === 1;
+      document.getElementById("nextButton").disabled = number === 2;
+      // 새로 활성화된 버튼으로 키보드 초점을 옮깁니다.
+      document.getElementById(number === 1 ? "nextButton" : "backButton").focus();
+    }
+  </script>
+</body>
+</html>
